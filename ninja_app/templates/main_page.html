@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Gold</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'javascript/script.js' %}"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="top">
+            <h4>Your Gold:</h4>
+            <div>{{request.session.total_gold}} {{request.session.grammar_nazi}}</div>
+        </div>
+        <div id="middle">
+            <form action="/process-money" method="post">
+                {% csrf_token %}
+                <h3>Farm</h3>
+                <p>(earns 10-20 gold coins)</p>
+                <input type="hidden" id="income" name="income" value="farm">
+                <input type="submit" value="Find gold!">
+            </form>
+            <form action="/process-money" method="post">
+                {% csrf_token %}
+                <h3>Cave</h3>
+                <p>(earns 5-10 gold coins)</p>
+                <input type="hidden" id="income" name="income" value="cave">
+                <input type="submit" value="Find gold!">
+            </form>
+            <form action="/process-money" method="post">
+                {% csrf_token %}
+                <h3>House</h3>
+                <p>(earns 2-5 gold coins)</p>
+                <input type="hidden" id="income" name="income" value="house">
+                <input type="submit" value="Find gold!">
+            </form>
+            <form action="/process-money" method="post">
+                {% csrf_token %}
+                <h3>Casino</h3>
+                <p>(earns/takes 0-50 gold coins)</p>
+                <input type="hidden" id="income" name="income" value="casino">
+                <input type="submit" value="Find gold!">
+            </form>
+        </div>
+        <h5>Your Actions:</h5>
+        <div id="bottom">
+            {% for action in request.session.your_actions %}
+            {{action}} <br>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
